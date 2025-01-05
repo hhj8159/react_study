@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 
 const MyArray = () => {
   const fruits = ['사과', '딸기', '포도', '복숭아', '귤'];
-  const [bucket, setBucket] = useState([]);
-  
-  const [count, setCount] = useState(0);
+  const [bucket, setBucket] = useState([]);  
+  const [count, setCount] = useState([]);
   return (
     <div>
       <h3>{bucket}</h3>
+      <h3>{count+""}</h3>
       <button onClick={() => {
         const rand = parseInt(Math.random() * fruits.length);
         bucket.push(fruits[rand]);
         setBucket([...bucket]);
-        setCount(count);
+        count.push(rand);
+        setCount(count)
       }}>과일 추가</button>
       <button onClick={() => {
         const rand = parseInt(Math.random() * bucket.length);
@@ -21,7 +22,7 @@ const MyArray = () => {
       }}>과일 제거</button>
       <button onClick={() => {setBucket([])}}>바구니 비우기</button>
       <ul>
-        {fruits.map((f, i) => <li key={i}>{f}{count}개</li>)}
+        {fruits.map((f, i) => <li key={i}>{f}{0 + (i == count ? bucket.length : null)}개</li>)}
       </ul>
     </div>
   );
