@@ -11,7 +11,7 @@ const Counter = () => {
       <button onClick={() => {setCount(count - 1)}}>1감소</button>
       <button onClick={() => {setCount(0)}}>초기화</button>
     </div>
-  );
+  );  
 }
 
 export default Counter;
