@@ -20,6 +20,9 @@ import MyEvent from './chapter_08/MyEvent';
 import LandingPage from './chapter_09/LandingPage';
 import NumberList from './chapter_10/NumberList';
 import AttendenceBook from './chapter_10/AttendenceBook';
+import MyForm from './chapter_11/MyForm';
+import Multiple from './chapter_11/Multiple';
+import Calculator from './chapter_12/Calculator';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -44,7 +47,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
       {/* <MyEvent /> */}
       {/* <LandingPage /> */}
       {/* <NumberList numbers={[1,2,3,4,5]} /> */}
-      <AttendenceBook />
+      {/* <AttendenceBook /> */}
+      {/* <MyForm /> */}
+      {/* <Multiple /> */}
+      <Calculator />
     </>
   );
 // }, 1000);
