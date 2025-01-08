@@ -23,6 +23,8 @@ import AttendenceBook from './chapter_10/AttendenceBook';
 import MyForm from './chapter_11/MyForm';
 import Multiple from './chapter_11/Multiple';
 import Calculator from './chapter_12/Calculator';
+import ProfileCard from './chapter_13/ProfileCard';
+import Accommodate from './chapter_07/Accommodate';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -50,7 +52,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
       {/* <AttendenceBook /> */}
       {/* <MyForm /> */}
       {/* <Multiple /> */}
-      <Calculator />
+      {/* <Calculator /> */}
+      {/* <ProfileCard /> */}
+      <Accommodate />
     </>
   );
 // }, 1000);
