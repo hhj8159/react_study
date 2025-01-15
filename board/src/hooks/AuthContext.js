@@ -2,11 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // 1. localStorage의 값을 가져오기
-
-
 // 2. login 구현
-
-
 // 3. logout 구현
 
 const AuthContext = createContext();
