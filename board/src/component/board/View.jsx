@@ -7,6 +7,7 @@ const View = () => {
   const num = param.num;
   const {data, loading, error, req} = useAxios();  
   const nav = useNavigate();
+
   useEffect (() => {
     (async() => {
       const resp = await req('get', `notes/${num}`);
@@ -32,6 +33,10 @@ const View = () => {
       req('delete', `notes/${num}`);
       nav('/notes');
     };
+    // const handleModify = e => {
+    //   e.preventDefault();
+    //   navigate("/modify");
+    // }
 
   return data && (
     <div>
@@ -42,7 +47,14 @@ const View = () => {
       <p>{data.memberEmail}</p>
       <p>{data.regDate}</p>
       <p>{data.modDate}</p>
-      <Link to={`/modify/${data.num}`}><button>수정</button></Link>      
+
+      <div>
+        <h3>attachs : {data.attachDtos.length}</h3>
+        <ul>
+          {data.attachDtos.map(a => <li key={a.uuid}><Link to={a.url}>{a.origin}</Link></li>)}
+        </ul>
+      </div>
+      <Link to={`/notes/modify/${data.num}`}><button>수정</button></Link>      
       <button onClick={handleDelete}>삭제</button>
     </div>
     

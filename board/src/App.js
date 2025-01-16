@@ -31,7 +31,7 @@ function App() {
             <Write />
           </ProtectedRoute>
         } />
-        <Route path="/notes/modify:num" element={
+        <Route path="/notes/modify/:num" element={
           <ProtectedRoute>
             <Modify />
           </ProtectedRoute>
