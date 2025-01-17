@@ -1,19 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
+import { useAuth } from '../../hooks/AuthContext';
 
 const View = () => {
   const param = useParams();
   const num = param.num;
-  const {data, loading, error, req} = useAxios();  
+  const {loading, error, req} = useAxios();  
   const nav = useNavigate();
+  const {email} = useAuth();
+  const [note, setNote] = useState({});
+  const [myLike, setMyLike] = useState({});
 
   useEffect (() => {
     (async() => {
-      const resp = await req('get', `notes/${num}`);
-      console.log(resp);
+      setNote(await req('get', `notes/${num}`));
+      const queryString = new URLSearchParams({email, num}).toString();
+      console.log(queryString);
+      setMyLike(await req('get', `likes?${queryString}`));
     })();
-  }, [num, req]);
+  }, [num, req, email]);
 
     if(error) {
       return <div><h1>에러발생</h1></div>
@@ -33,28 +39,33 @@ const View = () => {
       req('delete', `notes/${num}`);
       nav('/notes');
     };
-    // const handleModify = e => {
-    //   e.preventDefault();
-    //   navigate("/modify");
-    // }
+    
+    // 좋아요 토글
+    const handleLikesToggle = async e => {
+      e.preventDefault();
+      const ret = await req('post', `likes`, {email, num});
+      setMyLike(!myLike);
+      setNote({...note, likesCnt:note.likesCnt + (ret.result ? -1 : 1)})
+    }
 
-  return data && (
+  return note && (
     <div>
       <h1>View</h1>
       <p>{param.num}번 게시글</p>
-      <p>{data.title}</p>
-      <p>{data.content}</p>
-      <p>{data.memberEmail}</p>
-      <p>{data.regDate}</p>
-      <p>{data.modDate}</p>
+      <p>{note.title}</p>
+      <p>{note.content}</p>
+      <p>{note.memberEmail}</p>
+      <p>{note.regDate}</p>
+      <p>{note.modDate}</p>
+      <p><button onClick={handleLikesToggle}>좋아요 <span style={{color:'red'}}>{myLike ? '♥' : '♡'}</span> {note.likesCnt}</button></p>
 
       <div>
-        <h3>attachs : {data.attachDtos.length}</h3>
+        <h3>attachs : {note.attachDtos && note.attachDtos.length}</h3>
         <ul>
-          {data.attachDtos.map(a => <li key={a.uuid}><Link to={a.url}>{a.origin}</Link></li>)}
+          {note.attachDtos && note.attachDtos.map(a => <li key={a.uuid}><Link to={a.url}>{a.origin}</Link></li>)}
         </ul>
       </div>
-      <Link to={`/notes/modify/${data.num}`}><button>수정</button></Link>      
+      <Link to={`/notes/modify/${note.num}`}><button>수정</button></Link>      
       <button onClick={handleDelete}>삭제</button>
     </div>
     

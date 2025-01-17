@@ -17,6 +17,7 @@ const useAxios = (baseUrl = BASE_URL) => {
     async (method, endpoint, body = null, addHeaders = {}) => {
       setLoading(true)
       setError(null);
+      console.log(`${baseUrl}${endpoint}`);
       try {
         const resp = await axios({
           method,
